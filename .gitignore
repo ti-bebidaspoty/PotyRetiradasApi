@@ -1,0 +1,79 @@
+# Build results
+bin/
+obj/
+[Bb]uild/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+
+# Visual Studio
+.vs/
+*.user
+*.rsuser
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Rider / JetBrains
+.idea/
+*.sln.iml
+
+# VS Code
+.vscode/
+
+# Publish
+publish/
+Publish/
+app.publish/
+*.pubxml.user
+
+# Logs
+logs/
+Logs/
+*.log
+stdout*.log
+
+# IIS / Azure generated files
+web.config.bak
+*.zip
+
+# NuGet
+*.nupkg
+.nuget/
+packages/
+project.lock.json
+project.assets.json
+
+# Test results
+TestResults/
+coverage/
+coverage.cobertura.xml
+*.coverage
+*.coveragexml
+
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Certificates / keys
+*.pfx
+*.p12
+*.pem
+*.key
+*.crt
+
+# Database local files
+*.mdf
+*.ldf
+*.db
+*.sqlite
+*.sqlite3
+
+# OS files
+.DS_Store
+Thumbs.db
