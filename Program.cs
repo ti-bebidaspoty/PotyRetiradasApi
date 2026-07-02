@@ -84,6 +84,19 @@ builder.Services
 
 builder.Services.AddAuthorization();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("PotyRetiradasWeb", policy =>
+    {
+        policy
+            .WithOrigins(
+                "https://potyretiradas.bebidaspoty.com.br"
+            )
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
+
 builder.Services.AddScoped<IUnidadeRepository, UnidadeRepository>();
 builder.Services.AddScoped<IUnidadeService, UnidadeService>();
 
@@ -131,6 +144,10 @@ app.UseSwaggerUI(options =>
 });
 
 app.UseHttpsRedirection();
+
+app.UseRouting();
+
+app.UseCors("PotyRetiradasWeb");
 
 app.UseAuthentication();
 app.UseAuthorization();

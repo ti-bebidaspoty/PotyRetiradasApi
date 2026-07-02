@@ -5,7 +5,7 @@ using PotyRetiradasApi.Services.Interfaces;
 
 namespace PotyRetiradasApi.Controllers;
 
-[Authorize]
+//[Authorize]
 [ApiController]
 [Route("api/produtos")]
 public sealed class ProdutosController : ControllerBase
