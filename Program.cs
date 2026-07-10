@@ -120,6 +120,9 @@ builder.Services.AddScoped<IRetiradaMensalProdutoRepository, RetiradaMensalProdu
 builder.Services.AddScoped<IRetiradaMensalRepository, RetiradaMensalRepository>();
 builder.Services.AddScoped<IRetiradaMensalService, RetiradaMensalService>();
 
+builder.Services.AddScoped<IRetiradaMensalProdutoRepository, RetiradaMensalProdutoRepository>();
+builder.Services.AddScoped<IRetiradaMensalProdutoService, RetiradaMensalProdutoService>();
+
 builder.Services.AddScoped<IArquivoStorageService, AzureBlobStorageService>();
 
 builder.Services.AddScoped<IPasswordHasher<Usuario>, PasswordHasher<Usuario>>();

@@ -60,4 +60,35 @@ public sealed class RetiradaMensalProdutoRepository
     {
         return await _context.SaveChangesAsync(cancellationToken);
     }
+
+    public async Task<RetiradasMensaisProduto> AdicionarAsync(
+    RetiradasMensaisProduto produto,
+    CancellationToken cancellationToken)
+    {
+        await _context.RetiradasMensaisProdutos.AddAsync(
+            produto,
+            cancellationToken);
+
+        return produto;
+    }
+
+    public async Task<bool> ExcluirPorIdAsync(
+    string retiradaMensalProdutoId,
+    CancellationToken cancellationToken)
+    {
+        var produto = await _context.RetiradasMensaisProdutos
+            .FirstOrDefaultAsync(
+                item =>
+                    item.RetiradaMensalProdutoId == retiradaMensalProdutoId,
+                cancellationToken);
+
+        if (produto is null)
+        {
+            return false;
+        }
+
+        _context.RetiradasMensaisProdutos.Remove(produto);
+
+        return true;
+    }
 }

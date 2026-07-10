@@ -22,4 +22,12 @@ public interface IRetiradaMensalProdutoRepository
 
     Task<int> SalvarAlteracoesAsync(
         CancellationToken cancellationToken);
+
+    Task<RetiradasMensaisProduto> AdicionarAsync(
+    RetiradasMensaisProduto produto,
+    CancellationToken cancellationToken);
+
+    Task<bool> ExcluirPorIdAsync(
+        string retiradaMensalProdutoId,
+        CancellationToken cancellationToken);
 }
