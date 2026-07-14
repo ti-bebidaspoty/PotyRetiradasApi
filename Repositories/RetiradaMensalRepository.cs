@@ -101,4 +101,24 @@ public sealed class RetiradaMensalRepository : IRetiradaMensalRepository
             .OrderByDescending(retirada => retirada.DataHora)
             .ToListAsync(cancellationToken);
     }
+
+    public async Task<IReadOnlyList<Colaboradore>> BuscarColaboradoresSemRetiradaPorAnoMesEUnidadeAsync(
+        string anoMes,
+        int unidadeId,
+        CancellationToken cancellationToken)
+    {
+        return await _context.Colaboradores
+            .AsNoTracking()
+            .Include(colaborador => colaborador.Unidade)
+            .Where(colaborador =>
+                colaborador.UnidadeId == unidadeId &&
+                colaborador.Status)
+            .Where(colaborador =>
+                !_context.RetiradasMensais.Any(retirada =>
+                    retirada.ColaboradorId == colaborador.ColaboradorId &&
+                    retirada.AnoMes == anoMes &&
+                    retirada.UnidadeId == unidadeId))
+            .OrderBy(colaborador => colaborador.Nome)
+            .ToListAsync(cancellationToken);
+    }
 }

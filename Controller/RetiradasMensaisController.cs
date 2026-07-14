@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PotyRetiradasApi.Dtos.RetiradasMensais;
 using PotyRetiradasApi.Services.Interfaces;
@@ -105,6 +106,32 @@ public sealed class RetiradasMensaisController : ControllerBase
                 cancellationToken);
 
             return Ok(retiradas);
+        }
+        catch (ArgumentException ex)
+        {
+            return BadRequest(new
+            {
+                mensagem = ex.Message
+            });
+        }
+    }
+
+    [HttpGet("ano-mes/{anoMes}/unidade/{unidadeId}/colaboradores-nao-retiraram")]
+    public async Task<ActionResult<IReadOnlyList<ColaboradorNaoRetirouResponse>>>
+        ListarColaboradoresQueNaoRetiraram(
+            string anoMes,
+            int unidadeId,
+            CancellationToken cancellationToken)
+        {
+        try
+        {
+            var colaboradores =
+                await _service.ListarColaboradoresQueNaoRetiraramAsync(
+                    anoMes,
+                    unidadeId,
+                    cancellationToken);
+
+            return Ok(colaboradores);
         }
         catch (ArgumentException ex)
         {

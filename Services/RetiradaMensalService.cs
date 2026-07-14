@@ -396,4 +396,51 @@ public sealed class RetiradaMensalService : IRetiradaMensalService
             .Select(MapearResponse)
             .ToList();
     }
+
+    public async Task<IReadOnlyList<ColaboradorNaoRetirouResponse>> ListarColaboradoresQueNaoRetiraramAsync(
+        string anoMes,
+        int unidadeId,
+        CancellationToken cancellationToken)
+    {
+        anoMes = NormalizarAnoMes(anoMes);
+
+        ValidarAnoMesFormato(anoMes);
+
+        var colaboradores = await _retiradaRepository
+            .BuscarColaboradoresSemRetiradaPorAnoMesEUnidadeAsync(
+                anoMes,
+                unidadeId,
+                cancellationToken);
+
+        return colaboradores
+            .Select(colaborador => new ColaboradorNaoRetirouResponse
+            {
+                ColaboradorId = colaborador.ColaboradorId,
+                ColaboradorNome = colaborador.Nome,
+                UnidadeId = colaborador.UnidadeId,
+                UnidadeDescricao = colaborador.Unidade?.Descricao
+            })
+            .ToList();
+    }
+
+    private static void ValidarAnoMesFormato(string anoMes)
+    {
+        const string mensagemInvalida =
+            "O campo anoMes deve estar no formato AAAAMM e conter um mês válido.";
+
+        if (anoMes.Length != 6 || !anoMes.All(char.IsDigit))
+        {
+            throw new ArgumentException(mensagemInvalida);
+        }
+
+        if (!int.TryParse(anoMes[..4], out var ano) || ano < 1900 || ano > 2200)
+        {
+            throw new ArgumentException(mensagemInvalida);
+        }
+
+        if (!int.TryParse(anoMes[4..], out var mes) || mes < 1 || mes > 12)
+        {
+            throw new ArgumentException(mensagemInvalida);
+        }
+    }
 }

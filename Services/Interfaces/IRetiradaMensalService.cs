@@ -22,4 +22,9 @@ public interface IRetiradaMensalService
     Task<IReadOnlyList<RetiradaMensalResponse>> ListarPorAnoMesAsync(
     string anoMes,
     CancellationToken cancellationToken);
+
+    Task<IReadOnlyList<ColaboradorNaoRetirouResponse>> ListarColaboradoresQueNaoRetiraramAsync(
+        string anoMes,
+        int unidadeId,
+        CancellationToken cancellationToken);
 }

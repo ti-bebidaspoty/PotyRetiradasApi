@@ -29,6 +29,17 @@ public sealed class CriarRetiradaMensalRequest
     public List<ProdutoRetiradaRequest> Produtos { get; set; } = new();
 }
 
+public sealed class ColaboradorNaoRetirouResponse
+{
+    public string ColaboradorId { get; set; } = string.Empty;
+
+    public string ColaboradorNome { get; set; } = string.Empty;
+
+    public int UnidadeId { get; set; }
+
+    public string? UnidadeDescricao { get; set; }
+}
+
 public sealed class RetiradaMensalResponse
 {
     public string RetiradaMensalId { get; set; } = string.Empty;
